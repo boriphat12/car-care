@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { CarType } from "../../types";
-import { fetchCarsAPI } from "./carApi";
+import { addCarAPI, deleteCarAPI, fetchCarsAPI, updateCarAPI } from "./carApi";
 import type { AppDispatch } from "../../app/store";
 
 const initialState: CarType[] = [];
@@ -33,6 +33,27 @@ export const initializeCars = () => {
     return async (dispatch: AppDispatch) => {
         const data = await fetchCarsAPI();
         dispatch(setCars(data));
+    }
+}
+
+export const createCar = (car :CarType) => {
+    return async (dispatch: AppDispatch) => {
+        const data = await addCarAPI(car);
+        dispatch(addCar(data));
+    }
+}
+
+export const delCar = (id: string) => {
+    return async (dispatch: AppDispatch) => {
+        await deleteCarAPI(id);
+        dispatch(deleteCar(id));
+    }
+}
+
+export const updCar = (car: CarType) => {
+    return async (dispatch : AppDispatch) => {
+        const data = await updateCarAPI(car);
+        dispatch(updateCar(data));
     }
 }
 
