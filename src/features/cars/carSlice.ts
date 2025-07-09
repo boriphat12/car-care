@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { CarType } from "../../types";
+import type { CarType, NewCarType } from "../../types";
 import { addCarAPI, deleteCarAPI, fetchCarsAPI, updateCarAPI } from "./carApi";
 import type { AppDispatch } from "../../app/store";
 
@@ -36,7 +36,7 @@ export const initializeCars = () => {
     }
 }
 
-export const createCar = (car :CarType) => {
+export const createCar = (car :NewCarType) => {
     return async (dispatch: AppDispatch) => {
         const data = await addCarAPI(car);
         dispatch(addCar(data));

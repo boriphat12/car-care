@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { CarType } from '../../types';
+import type { CarType, NewCarType } from '../../types';
 
 const API_URL = 'http://localhost:3001/api/cars';
 
@@ -8,7 +8,7 @@ export const fetchCarsAPI = async () => {
     return response.data;
 };
 
-export const addCarAPI = async (car: CarType) => {
+export const addCarAPI = async (car: NewCarType) => {
     const response = await axios.post(API_URL, car);
     return response.data;
 };

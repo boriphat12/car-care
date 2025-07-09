@@ -7,3 +7,5 @@ export interface CarType {
     status: string,
     price: number,
 }
+
+export type NewCarType = Omit<CarType, "id">;
