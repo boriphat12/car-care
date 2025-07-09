@@ -1,21 +1,28 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import dotenv from 'dotenv';
-import carRoutes from './routes/cars'
+import dotenv from 'dotenv'
+import carRoutes from './routes/cars.js';
 
 dotenv.config();
 const app = express();
-const PORT = process.env.PORT || 3001;
+
+if (!process.env.MONGODB_URI) {
+    console.error("❌ MONGO_URI is not defined in .env");
+    process.exit(1);
+}
+
+mongoose.set('strictQuery', true);
 
 app.use(cors());
 app.use(express.json());
 
 app.use('/api/cars', carRoutes);
 
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGODB_URI || '')
     .then(() => {
-        console.log("MongoDB Connected");
-        app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+        app.listen(process.env.PORT || 3001, () => {
+            console.log('Server running on ');
+        })
     })
-    .catch(err => console.error(err));
+    .catch((err) => console.error('MongoDB connection error:', err));

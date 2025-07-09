@@ -1,5 +1,5 @@
 import express from 'express';
-import Car from '../models/Car';
+import Car from '../models/Car.js';
 
 const router = express.Router();
 
@@ -37,9 +37,10 @@ router.post('/', async (req, res) => {
     }
 })
 
-router.put('/', async (req, res) => {
+router.put('/:id', async (req, res) => {
     try{
-        const {id, owner, licensePlate, color, status, price} = req.body;
+        const id = req.params.id;
+        const {owner, licensePlate, color, status, price} = req.body;
         const updatedCar = await Car.findByIdAndUpdate(id, {
             owner, licensePlate, color, status, price
         }, {new: true});
@@ -53,9 +54,9 @@ router.put('/', async (req, res) => {
     }
 })
 
-router.delete('/', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     try{
-        const id = req.body;
+        const id = req.params.id;
         const deletedCar = await Car.findByIdAndDelete(id);
         if(!deletedCar) {
             res.status(404).json({message: "error on delete"});
