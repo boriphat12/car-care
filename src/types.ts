@@ -5,6 +5,7 @@ export interface CarType {
     licensePlate: string,
     color: string,
     status: string,
+    services: string[],
     price: number,
 }
 
