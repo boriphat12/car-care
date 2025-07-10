@@ -26,8 +26,8 @@ router.get("/:id", async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-    const {owner, licensePlate, color, status, price} = req.body;
-    const car = new Car({owner, licensePlate, color, status, price});
+    const {owner, licensePlate, color, status, price, services} = req.body;
+    const car = new Car({owner, licensePlate, color, status, price, services});
     try{
         
         const newCar = await car.save();
@@ -40,9 +40,9 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
     try{
         const id = req.params.id;
-        const {owner, licensePlate, color, status, price} = req.body;
+        const {owner, licensePlate, color, status, price, services} = req.body;
         const updatedCar = await Car.findByIdAndUpdate(id, {
-            owner, licensePlate, color, status, price
+            owner, licensePlate, color, status, price, services
         }, {new: true});
         if(!updatedCar) {
             res.status(404).json({message: "Car not found"});

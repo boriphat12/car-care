@@ -7,6 +7,7 @@ const carSchema = mongoose.Schema({
     color: {type:String, required: true},
     status: {type:String, required: true},
     price: {type:Number, required: true},
+    services: {type: [String], required: true},
 }, {timestamps: true})
 
 carSchema.set('toJSON', {
