@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../hooks"
 import { createCar, updCar } from "../features/cars/carSlice";
 import { useNavigate, useParams } from "react-router-dom";
+import './css/CarForm.css'
 
 const CarForm = () => {
     const dispatch = useAppDispatch();

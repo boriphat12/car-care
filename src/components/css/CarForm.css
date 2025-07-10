@@ -1,0 +1,90 @@
+form {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+form label {
+    font-weight: 600;
+    color: #333;
+}
+
+form input[type="text"],
+form input[type="number"]{
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-top: 5px;
+}
+
+form input[type="text"]:focus,
+form input[type="number"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+    outline: none;
+}
+
+fieldset {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-top: 10px;
+}
+
+fieldset label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 1rem;
+    color: #444;
+}
+
+fieldset input[type="checkbox"] {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+form p strong {
+    font-size: 1.2rem;
+    color: #007bff;
+}
+
+form button {
+    padding: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+form button[type="submit"] {
+    background-color: #28a745;
+    color: #fff;
+}
+
+form button[type="submit"]:hover {
+    background-color: #218838;
+}
+
+form button[type="button"] {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+form button[type="button"]:hover {
+    background-color: #c82333;
+}
