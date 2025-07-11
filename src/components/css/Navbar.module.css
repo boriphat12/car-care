@@ -1,20 +1,63 @@
 .navbar {
-  padding: 20px;
-  background-color: #f0f0f0;
-  display: flex;
-  align-items: center;
-  font-size: 25px;
-  font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    height: 60px;
+    background-color: #0d6efd;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .link {
-  margin-left: 10px;
-  text-decoration: none;
-  color: black;
-  font-weight: 500;
-  transition: color 0.3s ease;
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 500;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.link:hover {
-  color: #007bff;
+.addButton {
+    background-color: #dc3545; /* red */
+    border: none;
+    cursor: pointer;
+}
+
+.addButton:hover {
+    background-color: #bb2d3b;
+}
+
+/* Modal overlay */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+/* Modal content */
+.modalContent {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 600px;
+    width: 90%;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
 }

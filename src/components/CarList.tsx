@@ -1,137 +1,207 @@
-import { useNavigate } from "react-router-dom";
-import { delCar, updCar } from "../features/cars/carSlice";
-import { useAppDispatch, useAppSelector } from "../hooks";
-import type { CarType } from "../types";
-import './css/CarList.css'
 import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../hooks";
+import { delCar, updCar } from "../features/cars/carSlice";
+import type { CarType } from "../types";
+import CarForm from "./CarForm";
+import "./css/CarList.css";
 
-interface paramType {
-    car: CarType,
-    handleCancel: (id:string) => void,
-    handleFinish: (car:CarType) => void,
-    handlePickup: (id:string) => void;
+interface CarItemProps {
+    car: CarType;
+    handleCancel: (id: string) => void;
+    handleFinish: (car: CarType) => void;
+    handlePickup: (id: string) => void;
+    openEditModal: (car: CarType) => void;
 }
 
-const CarItem = ({car, handleCancel, handleFinish, handlePickup} : paramType ) => {
-    const navigate = useNavigate();
+const CarItem = ({
+    car,
+    handleCancel,
+    handleFinish,
+    handlePickup,
+    openEditModal
+}: CarItemProps) => {
     return (
         <div className={`car-card ${car.status}`}>
-            <p>Owner:{car.owner}</p>
-            <p>Color: {car.color}</p>
-            <p>Plate: {car.licensePlate}</p>
-            <p>Price: {car.price}</p>
+            <p><strong>Owner:</strong> {car.owner}</p>
+            <p><strong>Color:</strong> {car.color}</p>
+            <p><strong>Plate:</strong> {car.licensePlate}</p>
+            <p><strong>Price:</strong> ${car.price}</p>
+            <p><strong>Status:</strong> {car.status}</p>
             <ul>
                 {car.services.map((s, index) => (
-                <li key={index}>{s}</li>
-            ))}
+                    <li key={index}>{s}</li>
+                ))}
             </ul>
-            
-            <p>
-                status: {car.status}
-            </p>
             <div className="button-group">
                 {car.status === "finish" ? (
-                    <button onClick={() => (handlePickup(car.id))} className="pickup">
-                        pick up
+                    <button
+                        onClick={() => handlePickup(car.id)}
+                        className="pickup"
+                    >
+                        Pick Up
                     </button>
                 ) : (
-                    <button onClick={() => handleFinish(car)} className="finish">
-                        finish
+                    <button
+                        onClick={() => handleFinish(car)}
+                        className="finish"
+                    >
+                        Finish
                     </button>
                 )}
-                <button onClick={() => navigate(`/edit/${car.id}`)} className="edit">edit</button>                
-                <button onClick={() => handleCancel(car.id)} className="cancel">cancel</button>
-
+                <button
+                    onClick={() => openEditModal(car)}
+                    className="edit"
+                >
+                    Edit
+                </button>
+                <button
+                    onClick={() => handleCancel(car.id)}
+                    className="cancel"
+                >
+                    Cancel
+                </button>
             </div>
-            
         </div>
-    )
-}
+    );
+};
 
 const CarList = () => {
     const cars = useAppSelector((state) => state.car);
     const dispatch = useAppDispatch();
+
     const [search, setSearch] = useState("");
     const [selectedFilter, setSelectedFilter] = useState("all");
+
+    // Modal state
+    const [showModal, setShowModal] = useState(false);
+    const [modalCar, setModalCar] = useState<CarType | null>(null);
+
+    const openAddModal = () => {
+        setModalCar(null); // new car
+        setShowModal(true);
+    };
+
+    const openEditModal = (car: CarType) => {
+        setModalCar(car); // existing car
+        setShowModal(true);
+    };
+
+    const closeModal = () => {
+        setShowModal(false);
+        setModalCar(null);
+    };
+
     const handleCancel = (id: string) => {
-        const isDelete = window.confirm("are you sure to cancel?");
-        if(isDelete){
-            dispatch(delCar(id))
-        }
-    }
-    const handleFinish = (car: CarType) => {
-        const isFinish = window.confirm("are you sure to finish?");
-        if(isFinish){
-            const updatedCar = {...car, status: 'finish'}
-            dispatch(updCar(updatedCar))
-        }
-    }
-    const handlePickup = (id: string) => {
-        const isPickup = window.confirm("Has the customer picked up the car?");
-        if(isPickup){
+        const isDelete = window.confirm("Are you sure to cancel?");
+        if (isDelete) {
             dispatch(delCar(id));
         }
-    }
-    const showCars = cars.filter(car => 
-    (selectedFilter === "all" || car.status === selectedFilter) && (
-        car.licensePlate.toLowerCase().includes(search.toLowerCase()) ||
-        car.owner.toLowerCase().includes(search.toLowerCase()) ||
-        car.color.toLowerCase().includes(search.toLowerCase())
-     )
+    };
+
+    const handleFinish = (car: CarType) => {
+        const isFinish = window.confirm("Are you sure to finish?");
+        if (isFinish) {
+            const updatedCar = { ...car, status: "finish" };
+            dispatch(updCar(updatedCar));
+        }
+    };
+
+    const handlePickup = (id: string) => {
+        const isPickup = window.confirm("Has the customer picked up the car?");
+        if (isPickup) {
+            dispatch(delCar(id));
+        }
+    };
+
+    const showCars = cars.filter(
+        (car) =>
+            (selectedFilter === "all" || car.status === selectedFilter) &&
+            (car.licensePlate.toLowerCase().includes(search.toLowerCase()) ||
+                car.owner.toLowerCase().includes(search.toLowerCase()) ||
+                car.color.toLowerCase().includes(search.toLowerCase()))
     );
-    return(
+
+    return (
         <div>
+            {/* Search and Filter */}
             <div className="search-container">
                 <label>
-                    <input 
-                        onChange={(e) => setSearch(e.target.value)} 
-                        value={search}
+                    Search:
+                    <input
                         type="text"
-                        placeholder="Search by plate, owner, color..."
+                        onChange={(e) => setSearch(e.target.value)}
+                        value={search}
+                        placeholder="Owner, Plate or Color"
                     />
                 </label>
             </div>
             <div className="filter-container">
                 <label>
-                    <input 
+                    <input
                         type="radio"
                         name="filter"
                         value="all"
                         checked={selectedFilter === "all"}
                         onChange={() => setSelectedFilter("all")}
-                    />    
+                    />
                     <span>All</span>
-                </label>    
+                </label>
                 <label>
-                    <input 
+                    <input
                         type="radio"
                         name="filter"
                         value="finish"
                         checked={selectedFilter === "finish"}
                         onChange={() => setSelectedFilter("finish")}
-                    />    
+                    />
                     <span>Finish</span>
-                </label>    
+                </label>
                 <label>
-                    <input 
+                    <input
                         type="radio"
                         name="filter"
                         value="pending"
                         checked={selectedFilter === "pending"}
                         onChange={() => setSelectedFilter("pending")}
-                    />    
+                    />
                     <span>Pending</span>
-                </label>    
+                </label>
             </div>
-            
-            <div className="car-list">
-                {showCars.map(car => 
-                    <CarItem car={car} key={car.id} handleCancel={handleCancel} handleFinish={handleFinish} handlePickup={handlePickup}/>
-                )}
-            </div>
-        </div>
-        
-    )
-}
 
-export default CarList
+            {/* Car List */}
+            <div className="car-list">
+                {showCars.map((car) => (
+                    <CarItem
+                        car={car}
+                        key={car.id}
+                        handleCancel={handleCancel}
+                        handleFinish={handleFinish}
+                        handlePickup={handlePickup}
+                        openEditModal={openEditModal}
+                    />
+                ))}
+            </div>
+
+
+            {/* Modal */}
+            {showModal && (
+                <div
+                    className="modal-overlay"
+                    onClick={closeModal}
+                >
+                    <div
+                        className="modal-content"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <CarForm
+                            onClose={closeModal}
+                            editingCar={modalCar || undefined}
+                        />
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default CarList;

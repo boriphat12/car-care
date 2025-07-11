@@ -1,14 +1,11 @@
 form {
     max-width: 500px;
-    margin: 40px auto;
+    margin: 30px auto;
     padding: 20px;
     background: #ffffff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 10px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -63,6 +60,7 @@ form p strong {
 form button {
     padding: 10px;
     font-size: 1.1rem;
+    margin: 0px 10px;
     font-weight: 600;
     border: none;
     border-radius: 8px;
@@ -88,3 +86,4 @@ form button[type="button"] {
 form button[type="button"]:hover {
     background-color: #c82333;
 }
+
