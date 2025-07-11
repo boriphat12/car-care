@@ -9,13 +9,15 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 320px; /* taller to fit content nicely */
-    border: 1px solid #ddd;
+    height: 350px; /* taller to fit content nicely */
+    border: 2px solid #ddd;
     border-radius: 10px;
     padding: 16px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     background-color: #fff;
+    position: relative;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    font-family: "Segoe UI", "Roboto", "Helvetica Neue", sans-serif;
 }
 
 .car-card:hover {
@@ -23,16 +25,71 @@
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
+.car-card.pending {
+    border-color: #0d6efd;
+    background-color: #e7f1ff;
+}
+
+.car-card.finish {
+    border-color: #28a745;
+    background-color: #e6f4ea;
+}
+
+.car-card p:last-of-type {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.car-card.pending p:last-of-type {
+    color: #0d6efd; /* Orange text */
+}
+
+.car-card.finish p:last-of-type {
+    color: #198754; /* Green text */
+}
+
 .car-card p {
-    margin: 6px 0;
+    display: flex;
+    justify-content:center ;
+    margin: 5px 0;
     font-size: 1.15rem;
+    color: #444;
+    line-height: 1.5;
+}
+
+.car-card p:first-of-type {
+    font-size: 1.3rem;
+    font-weight: 700;
     color: #333;
+    margin-bottom: 10px;
+}
+
+.car-card p:nth-of-type(3) {
+    font-weight: 600;
+    color: #555;
+}
+
+.car-card p:nth-of-type(4) {
+    font-size: 1.2rem;
+    color: #198754;
+    font-weight: 600;
+}
+
+.car-card p:last-of-type {
+    font-weight: 600;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .car-card ul {
-    list-style: disc inside;
-    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    list-style: none;
+    margin: 0 0;
     padding-left: 10px;
+    color: #666;
     font-size: 1rem;
 }
 
@@ -81,4 +138,84 @@
 
 .button-group button.edit:hover {
     background-color: #1e7e34;
+}
+
+.car-card button.pickup {
+    background-color: #6f42c1; /* purple for pickup */
+}
+
+.car-card button.pickup:hover {
+    background-color: #5936a1;
+}
+
+.search-container {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.search-container label {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #333;
+}
+
+.search-container input[type="text"] {
+    padding: 10px 15px;
+    width: 300px;
+    max-width: 100%;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0,3s ease;
+}
+
+.search-container input[type="text"]:focus {
+    border-color: #0d6efd;
+    outline: none;
+    box-shadow: 0 0 5px rgba(13, 110, 253, 0.4);
+}
+
+.filter-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.filter-container label {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 20px;
+    background-color: #f1f1f1;
+    color: #333;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid #ccc;
+    user-select: none;
+}
+
+.filter-container input[type="radio"] {
+    display: none;
+}
+
+.filter-container input[type="radio"]:checked + span,
+.filter-container input[type="radio"]:checked + span::before,
+.filter-container input[type="radio"]:checked + span::after {
+    color: #fff;
+    border-color: #0d6efd;
+}
+
+.filter-container label:has(input[type="radio"]:checked) {
+    background-color: #0d6efd;
+    color: #fff;
+    border-color: #0d6efd;
+}
+
+.filter-container label:hover {
+    background-color: #e0e0e0;
 }
