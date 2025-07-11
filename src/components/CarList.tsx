@@ -16,9 +16,9 @@ const CarItem = ({car, handleCancel, handleFinish, handlePickup} : paramType ) =
     const navigate = useNavigate();
     return (
         <div className={`car-card ${car.status}`}>
-            <p>Car's owner: {car.owner}</p>
-            <p>Car's color: {car.color}</p>
-            <p>License plate: {car.licensePlate}</p>
+            <p>Owner:{car.owner}</p>
+            <p>Color: {car.color}</p>
+            <p>Plate: {car.licensePlate}</p>
             <p>Price: {car.price}</p>
             <ul>
                 {car.services.map((s, index) => (
@@ -27,7 +27,7 @@ const CarItem = ({car, handleCancel, handleFinish, handlePickup} : paramType ) =
             </ul>
             
             <p>
-                Car's status: {car.status}
+                status: {car.status}
             </p>
             <div className="button-group">
                 {car.status === "finish" ? (
