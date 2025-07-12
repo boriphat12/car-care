@@ -76,11 +76,6 @@ const CarList = () => {
     const [showModal, setShowModal] = useState(false);
     const [modalCar, setModalCar] = useState<CarType | null>(null);
 
-    const openAddModal = () => {
-        setModalCar(null); // new car
-        setShowModal(true);
-    };
-
     const openEditModal = (car: CarType) => {
         setModalCar(car); // existing car
         setShowModal(true);
