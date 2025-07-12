@@ -10,3 +10,19 @@ export interface CarType {
 }
 
 export type NewCarType = Omit<CarType, "id">;
+
+export interface User {
+    id: string;
+    name: string;
+    email: string;
+}
+
+export interface AuthState {
+    user: User | null;
+    token: string | null;
+}
+
+export interface LoginSystem {
+    email: string;
+    password: string;
+}

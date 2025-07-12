@@ -1,7 +1,7 @@
 form {
     max-width: 500px;
     margin: 30px auto;
-    padding: 20px;
+    padding: 12px 20px 0px 2px;
     background: #ffffff;
     display: flex;
     flex-direction: column;
