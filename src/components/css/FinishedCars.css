@@ -18,6 +18,29 @@
     margin-bottom: 30px;
 }
 
+.finished-cars input {
+    width: 300px;
+    max-width: 90%;
+    padding: 12px 15px;
+    font-size: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.finished-cars input:focus {
+    border-color: #0d6efd;
+    outline: none;
+    box-shadow: 0 0 8px rgba(13, 110, 253, 0.3);
+}
+
+.finished-cars input::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
 .car-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
